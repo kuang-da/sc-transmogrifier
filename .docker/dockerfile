@@ -1,0 +1,41 @@
+# Dockerfile for Seurat 4.3.0
+# Based on https://github.com/satijalab/seurat-docker
+FROM satijalab/seurat:latest
+
+# Install additional packages and dependencies
+RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/seurat-disk')"
+RUN R -e "remotes::install_github('satijalab/seurat-data')" 
+RUN apt-get install -y \
+    liblzma-dev \
+    libbz2-dev
+RUN R -e "install.packages('BiocManager', repos='http://cran.us.r-project.org')"
+RUN R -e "BiocManager::install('Rhtslib')"
+RUN R -e "BiocManager::install('Rsamtools')"
+RUN R -e "install.packages('Signac', repos='http://cran.us.r-project.org')"
+
+# ------------------------------------------------------
+# Setting up a non-root user
+# https://code.visualstudio.com/docs/remote/containers-advanced#_adding-a-nonroot-user-to-your-dev-container
+ARG USERNAME=transmogrifier
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+# Create the user
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
+
+# ------------------------------------------------------
+# Create a working directory for your app
+WORKDIR /app
+
+# Copy your scripts and R files into the working directory
+COPY run.sh seurat2ann.R seurat2ann-test.R test.sh /app/
+
+# # Make sure your `run.sh` and `test.sh` scripts have executable permissions
+RUN chmod +x /app/run.sh /app/test.sh
+
+# Change ownership of the /app directory to the non-root user
+RUN chown -R $USERNAME:$USERNAME /app
+
+# Set the user for subsequent RUN, CMD, and ENTRYPOINT commands
+USER $USERNAME

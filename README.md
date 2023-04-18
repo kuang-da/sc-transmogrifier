@@ -9,20 +9,49 @@ sc-transmogrifier is a utility designed to facilitate the transformation of sing
 
 ## Installation
 
-*Provide installation instructions for Docker or any other method you're using to package your tool.*
+### Docker 
+To pull the docker image, use the following command:
+
+```
+docker pull kuangda/sc-transmogrifier
+```
+
+Test the functionality of the image with this command:
+```
+docker run --rm kuangda/sc-transmogrifier bash test.sh
+```
+
+### Sigularity
+To be added.
 
 ## Usage
+To run the docker container, use the following command, replacing `<LOCAL INPUT DIR>` and `<LOCAL OUTPUT DIR>` with the appropriate paths:
 
-*Provide detailed usage instructions, including how to convert between Seurat and AnnData formats, any available options or arguments, and expected output.*
+```
+docker run -it --rm -v <LOCAL INPUT DIR>:/app/data -v <LOCAL OUTPUT DIR>:/app/data kuangda/sc-transmogrifier bash run.sh
+```
 
 ### Example
+The following command demonstrates how to run the container with specific input and output directories:
 
-*Include a step-by-step example of how to use your tool to perform a conversion between Seurat and AnnData formats.*
+```
+docker run --rm -v\
+ /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/data/ft:/app/data\
+ -v /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/out/ft:/app/out\
+ kuangda/sc-transmogrifier\
+ bash run.sh /app/data/seurat_archr_combined_FT.RDS
+```
 
-## Contributing
+## Docker Environment
 
-*Include any information on how users can contribute to the project, such as submitting issues or pull requests, and any coding style guidelines you'd like contributors to follow.*
+### VSCode Devcontainer
 
-## License
+The development environment is managed by `.devcontainer` configuration.
 
-*Specify the license under which your project is released, such as MIT, Apache, GPL, etc.*
+###  Update Docker Image
+
+To rebuild and push the docker image to DockerHub, use the following command:
+
+```
+bash .docker/docker-build.sh
+```

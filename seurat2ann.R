@@ -2,24 +2,33 @@ library(Seurat)
 library(SeuratDisk)
 library(Signac)
 
+args <- commandArgs(trailingOnly = TRUE)
+seurat_file_name <- args[1]
+
+# Define output file names
+output_basename <- gsub(".RDS", "", basename(seurat_file_name))
+output_dir <- "/app/out"
+h5seurat_file_name <- file.path(output_dir, paste0(output_basename, ".h5Seurat"))
+h5ad_file_name <- file.path(output_dir, paste0(output_basename, ".h5ad"))
+
+cat("Input Seurat file:", seurat_file_name, "\n")
+cat("Output directory:", output_dir, "\n")
+print("----------------------------------------")
 # Load the Seurat object
-seurat_file_name <- "data/ft/seurat_archr_combined_FT.RDS"
-h5seurat_file_name <- "data/ft/seurat_archr_combined_FT.h5Seurat"
-h5ad_file_name <- "data/ft/archr_combined_FT.h5ad"
+cat("Loading Seurat object...\n")
 seurat_obj <- readRDS(seurat_file_name)
 
 # Print some info
 cell_names <- colnames(seurat_obj@assays$RNA@counts)
 gene_names <- rownames(seurat_obj@assays$RNA@counts)
-print("Seurat object info:")
-print(cell_names[1:5])
-print(gene_names[1:5])
+cat("Seurat object info:\n")
+cat("Sample cell names:", cell_names[1:5], "\n")
+cat("Sample gene names:", gene_names[1:5], "\n")
 print(seurat_obj)
-
+print("----------------------------------------")
 # Convert to AnnData
-# Reference
-# https://mojaveazure.github.io/seurat-disk/articles/convert-anndata.html
+cat("--------- Converting Seurat object to AnnData...\n")
 SaveH5Seurat(seurat_obj, filename = h5seurat_file_name)
 Convert(h5seurat_file_name, dest = "h5ad")
-print("Done converting to AnnData.")
-print(h5ad_file_name)
+cat("Done converting to AnnData.\n")
+cat("Output AnnData file:", h5ad_file_name, "\n")

@@ -1,3 +1,9 @@
+local_lib_path <- "/app/data/local_lib"
+if (!dir.exists(local_lib_path)) {
+  dir.create(local_lib_path)
+}
+.libPaths(c(local_lib_path, .libPaths()))
+
 library(Seurat)
 library(SeuratDisk)
 
