@@ -7,6 +7,11 @@ sc-transmogrifier is a utility designed to facilitate the transformation of sing
 
 ![image](https://user-images.githubusercontent.com/18092300/229930050-2ca37eef-e83c-43e2-a853-39d01c8dfc06.png)
 
+## Features List
+
+- [x] SeuratRDS -> h5seurat -> h5ad
+- [ ] h5ad -> h5seurat -> SeuratRDS
+
 ## Installation
 
 ### Docker 
@@ -39,7 +44,7 @@ docker run --rm -v\
  /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/data/ft:/app/data\
  -v /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/out/ft:/app/out\
  kuangda/sc-transmogrifier\
- bash run.sh /app/data/seurat_archr_combined_FT.RDS
+ bash run-seurat2ann.sh /app/data/seurat_archr_combined_FT.RDS
 ```
 
 ## Docker Environment
