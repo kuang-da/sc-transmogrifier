@@ -1,0 +1,45 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.217.0/containers/docker-existing-dockerfile
+{
+	"name": "Seurat Dev",
+	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+	"dockerFile": "./dockerfile",
+	// Set *default* container specific settings.json values on container create.
+	"mounts": [
+		// See https://aka.ms/vscode-remote/samples/docker-from-docker.
+		// "source=/var/run/docker.sock,target=/var/run/docker.sock, type=bind",
+		// "source=${localWorkspaceFolder},target=/home/genehouse, type=bind"
+	],
+	"runArgs": [
+		// Ref: https://github.com/twsl/vscode-dev-containers/blob/feature/python-cuda/containers/python-3-cuda/.devcontainer/devcontainer.json
+		// Requires WSL2, see https://docs.nvidia.com/cuda/wsl-user-guide/index.html#wsl2-system-requirements
+		"--gpus=all",
+		"--shm-size=32gb"
+	],
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
+		"terminal.integrated.defaultProfile.linux": "bash",
+		"terminal.integrated.profiles.linux": {
+			"bash": {
+				"path": "/bin/bash"
+			}
+		},
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"github.vscode-pull-request-github",
+		"ms-azuretools.vscode-docker",
+		"eamodio.gitlens",
+		"pkief.material-icon-theme",
+		"alexcvzz.vscode-sqlite",
+		"github.copilot",
+		"reditorsupport.r"
+	],
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Uncomment the next line to run commands after the container is created - for example installing curl.
+	"postCreateCommand": "",
+	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "kuangda"
+}

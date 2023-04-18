@@ -1,0 +1,35 @@
+# Dockerfile for Seurat 4.3.0
+# Based on https://github.com/satijalab/seurat-docker
+FROM satijalab/seurat:latest
+
+RUN R --no-echo --no-restore --no-save -e "remotes::install_github('mojaveazure/seurat-disk')"
+# For pulling data from SeuratData used for testing
+RUN R -e "remotes::install_github('satijalab/seurat-data')" 
+# Dependencies for Signac
+RUN apt-get install -y \
+    liblzma-dev \
+    libbz2-dev
+RUN R -e "install.packages('BiocManager', repos='http://cran.us.r-project.org')"
+RUN R -e "BiocManager::install('Rhtslib')"
+RUN R -e "BiocManager::install('Rsamtools')"
+# For scATAC-seq analysis
+RUN R -e "install.packages('Signac', repos='http://cran.us.r-project.org')"
+# Setting R language server for VS Code
+RUN R --silent --slave --no-save --no-restore -e "install.packages('languageserver', repos='https://cran.r-project.org/')" 
+
+# ------------------------------------------------------
+# Setting up a non-root user
+# https://code.visualstudio.com/docs/remote/containers-advanced#_adding-a-nonroot-user-to-your-dev-container
+ARG USERNAME=kuangda
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+# Create the user
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    #
+    # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
+    && apt-get update \
+    && apt-get install -y sudo \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
