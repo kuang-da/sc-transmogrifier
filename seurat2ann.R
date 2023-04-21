@@ -18,6 +18,12 @@ print("----------------------------------------")
 cat("Loading Seurat object...\n")
 seurat_obj <- readRDS(seurat_file_name)
 
+# Preprocess the Seurat object
+# Convert factors to characters
+# Related issue: https://github.com/kuang-da/sc-transmogrifier/issues/1
+i <- sapply(seurat_obj@meta.data, is.factor)
+seurat_obj@meta.data[i] <- lapply(seurat_obj@meta.data[i], as.character)
+
 # Print some info
 cell_names <- colnames(seurat_obj@assays$RNA@counts)
 gene_names <- rownames(seurat_obj@assays$RNA@counts)
@@ -26,6 +32,7 @@ cat("Sample cell names:", cell_names[1:5], "\n")
 cat("Sample gene names:", gene_names[1:5], "\n")
 print(seurat_obj)
 print("----------------------------------------")
+
 # Convert to AnnData
 cat("--------- Converting Seurat object to AnnData...\n")
 SaveH5Seurat(seurat_obj, filename = h5seurat_file_name)
