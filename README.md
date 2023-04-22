@@ -3,7 +3,7 @@ A containerized tool for converting single-cell data between Seurat objects (R) 
 
 ## Overview
 
-sc-transmogrifier is a utility designed to facilitate the transformation of single-cell data between the popular R-based Seurat objects and Python-based AnnData objects. This enables researchers to easily switch between different single-cell analysis workflows and tools in R and Python ecosystems.
+sc-transmogrifier is a utility designed to facilitate the transformation of single-cell data between the popular R-based Seurat objects and Python-based AnnData objects. This enables researchers to easily switch between different single-cell analysis workflows and tools within the R and Python ecosystems. The conversion code is primarily based on SeuratDisk. The main contribution of this project is to provide a standalone and self-contained service, including necessary patches (e.g., issue #1) for format conversion. This is particularly convenient when working with large datasets or when you want to isolate conversion-related packages from your project environment.
 
 ![image](https://user-images.githubusercontent.com/18092300/229930050-2ca37eef-e83c-43e2-a853-39d01c8dfc06.png)
 
