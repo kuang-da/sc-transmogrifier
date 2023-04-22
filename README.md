@@ -41,8 +41,8 @@ The following command demonstrates how to run the container with specific input 
 
 ```
 docker run --rm -v\
- /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/data/ft:/app/data\
- -v /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/out/ft:/app/out\
+ /home/derek/research/Kim-Lab/2-hubmap/spatial/ref-scrna/data/ft:/app/data\
+ -v /home/derek/research/Kim-Lab/2-hubmap/spatial/ref-scrna/out/ft:/app/out\
  kuangda/sc-transmogrifier\
  bash run-seurat2ann.sh /app/data/seurat_archr_combined_FT.RDS
 ```
