@@ -33,7 +33,7 @@ To be added.
 To run the docker container, use the following command, replacing `<LOCAL INPUT DIR>` and `<LOCAL OUTPUT DIR>` with the appropriate paths:
 
 ```
-docker run -it --rm -v <LOCAL INPUT DIR>:/app/data -v <LOCAL OUTPUT DIR>:/app/data kuangda/sc-transmogrifier bash run.sh
+docker run -it --rm -v <LOCAL INPUT DIR>:/app/data -v <LOCAL OUTPUT DIR>:/app/data kuangda/sc-transmogrifier bash run-seurat2ann.sh <RDS FILE>
 ```
 
 ### Example
