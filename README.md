@@ -1,4 +1,5 @@
 # sc-transmogrifier
+
 A containerized tool for converting single-cell data between Seurat objects (R) and AnnData (Python) formats.
 
 ## Overview
@@ -15,36 +16,47 @@ sc-transmogrifier is a utility designed to facilitate the transformation of sing
 ## Installation
 
 ### Docker 
+
 To pull the docker image, use the following command:
 
-```
+```bash
 docker pull kuangda/sc-transmogrifier
 ```
 
 Test the functionality of the image with this command:
-```
+
+```bash
 docker run --rm kuangda/sc-transmogrifier bash test.sh
 ```
 
 ### Sigularity
+
 To be added.
 
 ## Usage
-To run the docker container, use the following command, replacing `<LOCAL INPUT DIR>` and `<LOCAL OUTPUT DIR>` with the appropriate paths:
 
-```
-docker run -it --rm -v <LOCAL INPUT DIR>:/app/data -v <LOCAL OUTPUT DIR>:/app/data kuangda/sc-transmogrifier bash run-seurat2ann.sh <RDS FILE>
+To run the docker container, use the following command, replacing `<LOCAL INPUT DIR>`, `<LOCAL OUTPUT DIR>`, and `<LOCAL GIT REPO>:` with the appropriate paths:
+
+```bash
+docker run --rm\
+ -v <LOCAL INPUT DIR>:/app/data\
+ -v <LOCAL OUTPUT DIR>:/app/out\
+ -v <LOCAL GIT REPO>:/app/sc-transmogrifier\
+ kuangda/sc-transmogrifier\
+ bash /app/sc-transmogrifier/run-seurat2ann.sh <RDS FILE> <ASSAY NAME> <RAW ONLY>
 ```
 
 ### Example
+
 The following command demonstrates how to run the container with specific input and output directories:
 
-```
-docker run --rm -v\
- /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/data/ft:/app/data\
- -v /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/out/ft:/app/out\
+```bash
+docker run --rm\
+ -v /mnt/nvme-1/2-hubmap/spatial/ref-scrna/data/ft:/app/data\
+ -v /mnt/nvme-1/2-hubmap/spatial/ref-scrna/out/ft:/app/out\
+ -v /mnt/nvme-1/2-hubmap/sc-transmogrifier:/app/sc-transmogrifier\
  kuangda/sc-transmogrifier\
- bash run-seurat2ann.sh /app/data/seurat_archr_combined_FT.RDS
+ bash /app/sc-transmogrifier/run-seurat2ann.sh /app/data/FT_wnn_integrated-0713.RDS RNA TRUE
 ```
 
 ## Docker Environment
@@ -53,10 +65,10 @@ docker run --rm -v\
 
 The development environment is managed by `.devcontainer` configuration.
 
-###  Update Docker Image
+### Update Docker Image
 
 To rebuild and push the docker image to DockerHub, use the following command:
 
-```
+```bash
 bash .docker/docker-build.sh
 ```

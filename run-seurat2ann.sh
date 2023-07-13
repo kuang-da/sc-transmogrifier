@@ -1,3 +1,3 @@
 #! /bin/bash
 
-Rscript seurat2ann.R "$1"
+Rscript /app/sc-transmogrifier/seurat2ann.R "$1" "$2" "$3"

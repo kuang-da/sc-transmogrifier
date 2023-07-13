@@ -6,9 +6,8 @@
 	"dockerFile": "./dockerfile",
 	// Set *default* container specific settings.json values on container create.
 	"mounts": [
-		// See https://aka.ms/vscode-remote/samples/docker-from-docker.
-		// "source=/var/run/docker.sock,target=/var/run/docker.sock, type=bind",
-		// "source=${localWorkspaceFolder},target=/home/genehouse, type=bind"
+		"source=/mnt/nvme-1/2-hubmap/spatial/ref-scrna/data,target=/workspaces/sc-transmogrifier/data,type=bind",
+		"source=/mnt/nvme-1/2-hubmap/spatial/ref-scrna/out,target=/workspaces/sc-transmogrifier/out,type=bind"
 	],
 	"runArgs": [
 		// Ref: https://github.com/twsl/vscode-dev-containers/blob/feature/python-cuda/containers/python-3-cuda/.devcontainer/devcontainer.json

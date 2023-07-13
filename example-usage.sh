@@ -1,7 +1,8 @@
 #!/bin/bash
-
-docker run --rm -v\
- /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/data/ft:/app/data\
- -v /home/derek/research/Kim-Lab/2-hubmap/sc-transmogrifier/out/ft:/app/out\
+bash .docker/docker-build.sh
+docker run --rm\
+ -v /mnt/nvme-1/2-hubmap/spatial/ref-scrna/data/ft:/app/data\
+ -v /mnt/nvme-1/2-hubmap/spatial/ref-scrna/out/ft:/app/out\
+ -v /mnt/nvme-1/2-hubmap/sc-transmogrifier:/app/sc-transmogrifier\
  kuangda/sc-transmogrifier\
- bash run.sh /app/data/seurat_archr_combined_FT.RDS
+ bash /app/sc-transmogrifier/run-seurat2ann.sh /app/data/FT_wnn_integrated-0713.RDS RNA TRUE

@@ -25,17 +25,5 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME
 
 # ------------------------------------------------------
-# Create a working directory for your app
-WORKDIR /app
-
-# Copy your scripts and R files into the working directory
-COPY run-seurat2ann.sh seurat2ann.R seurat2ann-test.R test.sh /app/
-
-# # Make sure your `run-seurat2ann.sh` and `test.sh` scripts have executable permissions
-RUN chmod +x /app/run-seurat2ann.sh /app/test.sh
-
-# Change ownership of the /app directory to the non-root user
-RUN chown -R $USERNAME:$USERNAME /app
-
 # Set the user for subsequent RUN, CMD, and ENTRYPOINT commands
 USER $USERNAME
