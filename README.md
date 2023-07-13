@@ -15,7 +15,7 @@ sc-transmogrifier is a utility designed to facilitate the transformation of sing
 
 ## Installation
 
-### Docker 
+### Docker
 
 To pull the docker image, use the following command:
 
